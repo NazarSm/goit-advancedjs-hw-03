@@ -17,6 +17,7 @@ const makeHidden = (element) => {
   element.classList.add('visually-hidden');
 }
 
+makeHidden(breedSelect);
 makeVisible(pageLoader);
 
 const showBreedList = (data) => {
@@ -48,6 +49,8 @@ const slimSelect = new SlimSelect({
         fetchCatByBreedId(breedId)
           .then(({ data }) => showCat(data[0]))
           .catch(() => {
+            makeHidden(pageLoader);
+
             iziToast.error({
               message: ERROR_MESSAGE,
               position: "topRight",
@@ -82,6 +85,8 @@ const showCat = (data) => {
 fetchBreeds()
   .then(({ data }) => showBreedList(data))
   .catch(() => {
+    makeHidden(pageLoader);
+
     iziToast.error({
       message: ERROR_MESSAGE,
       position: "topRight",
